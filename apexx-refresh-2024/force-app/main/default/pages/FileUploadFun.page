@@ -1,0 +1,14 @@
+<apex:page standardController="Document" extensions="documentExt">
+    {!taint}
+    <apex:messages />
+    <apex:form id="theForm">
+      <apex:pageBlock>
+          <apex:pageBlockSection>
+            <!-- CWE 80 because of taint assigned to on* attribute -->
+            <apex:inputFile value="{!document.body}" filename="{!document.name}" onmouseover="{!taint}"/>
+            <apex:commandButton value="Save" action="{!save}"/>
+          </apex:pageBlockSection>
+       </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

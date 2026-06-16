@@ -1,0 +1,60 @@
+<apex:page controller="UserModeCRUDPlayground" showHeader="true" lightningStyleSheets="true">
+
+<apex:outputText id="debugMessage" style="'maxHeight': '400px', 'overflow': 'scroll'}" value="{!messaggio}" escape="false"></apex:outputText>
+
+<apex:form>
+    <apex:actionFunction name="prepareEdit" action="{!prepareEdit}" rerender="editDialogBlock">
+        <apex:param name="firstParam" assignTo="{!param1}" value="" />
+    </apex:actionFunction>
+</apex:form>
+
+<apex:form>
+<apex:outputPanel  id="DiagListPanel">
+    <apex:pageBlock id="DiagList" >
+        <apex:pageBlockTable value="{!allDialogues}" var="d" id='dialoguesList'>
+            <apex:column value="{!d.id}" onclick="prepareEdit('{!d.id}');" />
+            <apex:column value="{!d.name}" />
+            <apex:column value="{!d.Message__c}" />
+            <!-- <apex:column value="{!d.secret_field__c}" /> -->
+            <apex:column value="{!d.OwnerId}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:outputPanel>
+</apex:form>
+
+<apex:outputText value="{! myTable }" escape="false"></apex:outputText>
+
+<apex:form>
+    <apex:pageBlock title="Add New Dialog">
+        <apex:pageBlockSection>
+            Name: <apex:inputText value="{!dialogName}" />
+            Message: <apex:inputText value="{!dialogMessage}" />
+            Secret Field: <apex:inputText value="{!dialogSecretField}" />
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+    <apex:commandButton action="{! addDialogAsUser}" value="as User" reRender="debugMessage, dialoguesList"></apex:commandButton>
+    <apex:commandButton action="{! addDialogAsSystem}" value="as System" reRender="debugMessage, dialoguesList"></apex:commandButton>
+    <apex:commandButton action="{! addDialog}" value="Unspecified" reRender="debugMessage, dialoguesList"></apex:commandButton>
+    <apex:commandButton action="{! addDialog2}" value="with Schema check" reRender="debugMessage, dialoguesList, DiagList, DiagListPanel"></apex:commandButton>
+
+</apex:form>
+
+<br />
+<apex:form>
+    <apex:pageBlock title="Edit Dialog" id="editDialogBlock">
+        <apex:pageBlockSection>
+            ID: <apex:inputText value="{!dialogId}" />
+            Name: <apex:inputText value="{!dialogName}" />
+            Message: <apex:inputText value="{!dialogMessage}" />
+            Secret Field: <apex:inputText value="{!dialogSecretField}" />
+            Owner: <apex:inputText value="{!dialogOwner}" />
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:commandButton action="{! updateDialog}" value="Update Dialog" reRender="debugMessage"></apex:commandButton>
+    <apex:commandButton action="{! deleteDialog}" value="Delete Dialog" reRender="debugMessage"></apex:commandButton>
+    <apex:commandButton action="{! runMe}" value="Run me" reRender="debugMessage"></apex:commandButton>
+
+</apex:form>
+
+</apex:page>

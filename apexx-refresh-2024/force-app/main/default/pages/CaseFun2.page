@@ -1,0 +1,13 @@
+<apex:page standardController="Case" extensions="CaseFunExt" showHeader="true" recordSetVar="cases">
+
+                <!-- CWE 80 - taint submitButtonName -->
+                <apex:logCallPublisher id="myLogCalllPublisher2" 
+                    entityId="{!cases[0].id}"          
+                    title='My Title'
+                    width="500px"
+                    logCallBody='Hi!'
+                    autoCollapseBody="false"
+                    submitButtonName='{!taint2}'
+                />  
+
+            </apex:page>

@@ -1,0 +1,39 @@
+<!-- Page: SalesforceReport.page  -->
+<apex:page controller="SalesforceReportController">
+    <apex:form>
+
+        <!-- CWEID 80 because of name attribute-->
+        <!-- triggered by https:// .../SalesforceReport?fnName1=hello(){};alert(1);function runMe -->
+        <apex:actionFunction name='{!fnName1}' action='{!aSimpleMethod}'></apex:actionFunction>
+        
+
+
+        <!-- CWE 80 because of name attribute and the presence of reRenderer-->
+        <!-- triggered by https:// .../SalesforceReport?fnName2=alert(2);a -->
+        <apex:actionFunction name='{!fnName2}' action='{!aSimpleMethod}' reRender=""></apex:actionFunction>
+
+    </apex:form>
+
+
+
+    <!-- CWE 80 - height tainted -->
+    <!-- triggered by https:// .../SalesforceReport?chartSize=350%22%20onmouseover%3D%22alert%284%29%22%3E  -->
+    <apex:chart width="350" height='{!chartSize}' data="{!pieData}" name='pippo1'>
+        <apex:pieSeries dataField="data" labelField="name" />
+        <apex:legend position="right" />
+    </apex:chart>
+
+    <!-- CWE 80 - width tainted -->
+    <!-- triggered by https:// .../SalesforceReport?chartSize=350%22%20onmouseover%3D%22alert%284%29%22%3E  -->
+    <apex:chart height="350" width='{!chartSize}' data="{!pieData}" name='pippo2'>
+        <apex:pieSeries dataField="data" labelField="name" />
+        <apex:legend position="right" />
+    </apex:chart>
+
+    <!-- CWE 80 because of description being tainted -->
+    <!-- triggered by https://.../SalesforceReport?sectionDescription=<script>alert(3);</script> -->
+    <apex:sectionHeader title="One of Your Opportunities" subtitle="Exciting !" description='{!sectionDescription}'></apex:sectionHeader>
+
+
+
+</apex:page>

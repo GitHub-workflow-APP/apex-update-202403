@@ -1,0 +1,13 @@
+<apex:page controller="ManagePagghiazzi" showHeader="true">
+
+    <apex:pageBlock>
+        <apex:pageBlockTable value="{!AllPagghiazzi}" var="p">
+            <apex:column value="{!p.id}" id="pagghiazzoid" />
+            <apex:column value='{!p.name}' />
+            <apex:column value="{!p.owner.name}" />
+            <apex:column value="{!p.color__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+
+</apex:page>

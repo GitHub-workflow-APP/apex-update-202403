@@ -1,0 +1,16 @@
+{
+  "orgName": "Apex Refresh 2024",
+  "edition": "Developer",
+  "adminEmail": "gtrovato@veracode.com",
+  "description": "Apex Refresh 2024",
+  "hasSampleData": true,
+  "features": ["EnableSetPasswordInApi"],
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    }
+  }
+}

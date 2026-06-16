@@ -1,0 +1,28 @@
+<apex:page controller="DialogueUnspecifiedSharing" showHeader="true" lightningStyleSheets="true">
+
+    <apex:pageBlock >
+        <h2>Class undefined Sharing - SOQL WITH USER_MODE</h2>
+        <apex:pageBlockTable value="{!Dialogues}" var="d">
+            <apex:column value="{!d.id}" id="dialogid1" />
+            <apex:column value="{!d.name}" />
+            <apex:column value="{!d.Message__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock >
+        <h2>Class undefined Sharing - SOQL WITHOUT USER_MODE SPECIFIED</h2>
+        <apex:pageBlockTable value="{!Dialogues2}" var="d">
+            <apex:column value="{!d.id}" id="dialogid2" />
+            <apex:column value="{!d.name}" />
+            <apex:column value="{!d.Message__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    <apex:pageBlock >
+        <h2>Classundefined Sharing - SOQL WITH SYSTEM_MODE</h2>
+        <apex:pageBlockTable value="{!Dialogues3}" var="d">
+            <apex:column value="{!d.id}" id="dialogid3" />
+            <apex:column value="{!d.name}" />
+            <apex:column value="{!d.Message__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+</apex:page>

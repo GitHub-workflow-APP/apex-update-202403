@@ -1,0 +1,44 @@
+<aura:component controller="UserModeDemoWithSharing" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+     <aura:attribute name="dialogues" type="Dialog__c[]"/>
+     <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+
+
+
+    <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="12">
+            <div class="slds">
+
+                <table class="slds-table slds-table--bordered slds-table--striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"><span class="slds-truncate">Dialog</span></th>
+                            <th scope="col"><span class="slds-truncate">Message</span></th>
+                             <th scope="col"><span class="slds-truncate">Owner</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.dialogues}" var="res">
+                            <tr >
+                                <td scope="row">
+                                    <div class="slds-truncate" title="{!res.Name}">
+                                        {!res.Name}
+                                    </div>
+                                </td>
+                                <td scope="row">
+                                    <div class="slds-truncate" title="{!res.Message__c}">
+                                        {!res.Message__c}
+                                    </div></td>
+                                <td scope="row">
+                                    <div class="slds-truncate" title="{!res.OwnerId}">
+                                       {!res.OwnerId}
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>

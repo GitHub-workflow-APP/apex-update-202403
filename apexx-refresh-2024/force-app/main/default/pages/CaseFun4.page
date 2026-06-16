@@ -1,0 +1,12 @@
+<apex:page standardController="Case" extensions="CaseFunExt" showHeader="true" recordSetVar="cases">
+
+                <!-- FP 80 -->
+                <apex:logCallPublisher id="myLogCalllPublisher4" 
+                    entityId="{!cases[0].id}"          
+                    title='My Title'
+                    width="500px"
+                    logCallBody='Hello'
+                    autoCollapseBody="false"
+                    submitButtonName='Click me'
+                />  
+            </apex:page>

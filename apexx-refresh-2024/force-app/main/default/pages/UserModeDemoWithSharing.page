@@ -1,0 +1,117 @@
+<apex:page controller="UserModeDemoWithSharing" showHeader="true" lightningStyleSheets="true" title="UserModeDemoWithSharing">
+    <h2>UserModeDemoWithSharing - {!$User.email}</h2>
+
+    <apex:form>
+        <apex:actionFunction name="prepareEditAsSystem" action="{!prepareEditAsSystem}" rerender="editDialogBlock">
+            <apex:param name="firstParam" assignTo="{!param1}" value="" />
+        </apex:actionFunction>
+
+        <apex:actionFunction name="prepareEditAsUser" action="{!prepareEditAsUser}" rerender="editDialogBlock">
+            <apex:param name="firstParam" assignTo="{!param1}" value="" />
+        </apex:actionFunction>
+    </apex:form>
+
+    <apex:form>
+        <apex:panelGrid columns="3" id="dialogsList">
+            <apex:outputPanel >
+                <h2>Dialogs With SYSTEM</h2>
+                <apex:pageBlock >
+                    <apex:pageBlockTable value="{!allDialoguesSystem}" var="d">
+                        <apex:column value="{!d.id}" onclick="prepareEditAsSystem('{!d.id}');" />
+                        <apex:column value="{!d.name}" />
+                        <apex:column value="{!d.Message__c}" />
+                        <apex:column value="{!d.OwnerId}" />
+                        <apex:column headerValue="S" title="Prepare to Edit as System" onclick="prepareEditAsSystem('{!d.id}');"/>
+                        <apex:column headerValue="U"  title="Prepare to Edit as User"  onclick="prepareEditAsUser('{!d.id}');" />
+                    </apex:pageBlockTable>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            <apex:outputPanel >
+                <h2>Dialogs With USER</h2>
+                <apex:pageBlock>
+                    <apex:pageBlockTable value="{!allDialoguesUser}" var="d">
+                        <apex:column value="{!d.id}" onclick="prepareEditAsUser('{!d.id}');" />
+                        <apex:column value="{!d.name}" />
+                        <apex:column value="{!d.Message__c}" />
+                        <apex:column value="{!d.OwnerId}" />
+                        <apex:column headerValue="S" title="Prepare to Edit as System" onclick="prepareEditAsSystem('{!d.id}');"/>
+                        <apex:column headerValue="U"  title="Prepare to Edit as User"  onclick="prepareEditAsUser('{!d.id}');" />
+                    </apex:pageBlockTable>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            <apex:outputPanel >
+                <h2>Dialogs UNDEF</h2>
+                <apex:pageBlock>
+                    <apex:pageBlockTable value="{!allDialoguesUndef}" var="d">
+                        <apex:column value="{!d.id}" onclick="prepareEditAsUser('{!d.id}');" />
+                        <apex:column value="{!d.name}" />
+                        <apex:column value="{!d.Message__c}" />
+                        <apex:column value="{!d.OwnerId}" />
+                        <apex:column headerValue="S" title="Prepare to Edit as System" onclick="prepareEditAsSystem('{!d.id}');"/>
+                        <apex:column headerValue="U"  title="Prepare to Edit as User"  onclick="prepareEditAsUser('{!d.id}');" />
+                    </apex:pageBlockTable>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </apex:panelGrid>
+    </apex:form>
+
+    <apex:pageBlock>
+        <apex:pageBlockSection columns="2">
+            <apex:form>
+                <apex:pageBlockSectionItem>
+                    <apex:outputPanel >
+                        <apex:pageBlock title="Add New Dialog">
+                            <apex:pageBlockSection  columns="1">
+                                <apex:inputField value="{!newDialog.Name}" />
+                                <apex:inputField value="{!newDialog.Message__c}" />
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+                        <apex:panelGrid columns="3">
+                            <apex:commandButton action="{! addDialogAsUser}" value="as User" reRender="dialogsList"></apex:commandButton>
+                            <apex:commandButton action="{! addDialogAsSystem}" value="as System" reRender="dialogsList"></apex:commandButton>
+                            <apex:commandButton action="{! addDialogUnspecified}" value="Unspecified" reRender="dialogsList"></apex:commandButton>
+                        </apex:panelGrid>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:form>
+            <apex:form>
+                <apex:pageBlockSectionItem>
+                    <apex:outputPanel >
+                        <apex:pageBlock title="Edit Dialog" id="editDialogBlock">
+                            <apex:pageBlockSection columns="1">
+                                <input type="text" disabled="disabled" value="{!toBeEditedDialog.id}"/>
+                                <apex:inputField value="{!toBeEditedDialog.name}" />
+                                <apex:inputField value="{!toBeEditedDialog.Message__c}" />
+                                <apex:inputField value="{!toBeEditedDialog.OwnerId}" />
+                            </apex:pageBlockSection>
+                        </apex:pageBlock>
+
+                        <apex:panelGrid columns="3">
+                            <apex:commandButton action="{!updateDialogAsUser}" value="as User" reRender="DiagListPanel"></apex:commandButton>
+                            <apex:commandButton action="{!updateDialogasSystem}" value="as System" reRender="DiagListPanel"></apex:commandButton>
+                            <apex:commandButton action="{!updateDialogUnspecified}" value="Unspecified" reRender="DiagListPanel"></apex:commandButton>
+                        </apex:panelGrid>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:form>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+
+
+    <apex:includeLightning />
+
+    <div id="datatable"></div>
+    <script>
+        $Lightning.use("c:DialogApp", function() {
+            $Lightning.createComponent(
+                "c:DialogComponent",
+                {},
+                "datatable",
+                function(cmp) {
+                    console.log("Lightning Aura Component is Loaded...");
+                }
+            );
+        });
+    </script>
+
+</apex:page>

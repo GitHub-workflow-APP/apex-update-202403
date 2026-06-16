@@ -1,0 +1,52 @@
+<apex:page controller="ChartController">
+    <!-- CWE 918 taint value-->
+    <apex:stylesheet value="{!taint}"/>
+
+    <!-- CWE 918 taint value-->
+    <apex:stylesheet value="{!URLFOR(taint)}"/>
+
+    <!--  FP 918  nothing tainted used here -->
+    <apex:stylesheet value="{!URLFOR($Resource.basic)}"/>
+
+    <!-- FP 80 nothing vulnerable is tainted here  -->
+    <apex:sectionHeader title="One of Your Opportunities" subtitle="Exciting !" description='Having Fun' >{!taint}</apex:sectionHeader>
+
+    <!-- CWE 80 because of description being tainted -->
+    <apex:sectionHeader title="One of Your Opportunities" subtitle="Exciting !" description='{!taint}' ></apex:sectionHeader>
+
+
+    <apex:chart height="400" width="700" data="{!data}">
+    	  <apex:axis type="Numeric" position="left" fields="data1" 
+            title="Opportunities Closed" grid="true"/>
+    	  <apex:axis type="Category" position="bottom" fields="name" 
+            title="Month of the Year">
+    	</apex:axis>
+    	<apex:lineSeries axis="left"  fill="true" xField="name" yField="data1"
+          markerType="cross" markerSize="4" markerFill="#FF0000"/>
+   </apex:chart>
+
+   <apex:form>
+    <apex:selectCheckboxes legendText="{!taint}" legendInvisible="False" value="{!countries}">
+        <apex:selectOptions value="{!items}"/>
+    </apex:selectCheckboxes><br/>
+    <apex:commandButton value="Test" action="{!test}" rerender="out" status="status"/>
+</apex:form>
+<apex:outputPanel id="out">
+    <apex:actionstatus id="status" startText="testing...">
+        <apex:facet name="stop">
+            <apex:outputPanel>
+                <p>You have selected:</p>
+                <apex:dataList value="{!countries}" var="c">{!c}</apex:dataList>
+            </apex:outputPanel>
+        </apex:facet>
+    </apex:actionstatus>
+</apex:outputPanel>
+
+<apex:tabPanel switchType="client" selectedTab="name2" id="theTabPanel" width="{!taint}">
+    <apex:tab label="One" name="name1" id="tabOne">{!taint}</apex:tab>
+    <apex:tab label="{!taint}" name="name2" id="tabTwo">content for tab two</apex:tab>
+    <apex:tab label="Three" name="name3" id="tabThree" labelWidth="{!taint}">content for tab three</apex:tab>
+    <apex:tab label="Four" name="name4" id="tabFour" title="{!taint}">content for tab four</apex:tab>
+</apex:tabPanel>
+
+</apex:page>

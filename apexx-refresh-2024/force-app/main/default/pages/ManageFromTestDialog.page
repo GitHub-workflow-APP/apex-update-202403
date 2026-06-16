@@ -1,0 +1,12 @@
+<apex:page controller="DialogueFromTestController" showHeader="true" lightningStyleSheets="true">
+
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!Dialogues}" var="d">
+            <apex:column value="{!d.id}" id="dialogid" />
+            <apex:column value="{!d.name}" />
+            <apex:column value="{!d.Message__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+
+</apex:page>

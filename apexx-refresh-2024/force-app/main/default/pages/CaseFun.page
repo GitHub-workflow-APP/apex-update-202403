@@ -1,0 +1,11 @@
+<apex:page standardController="Case" extensions="CaseFunExt" showHeader="true" recordSetVar="cases">
+                <!-- CWE 80 - taint logCallBody -->
+                <apex:logCallPublisher id="myLogCalllPublisher1" 
+                    entityId="{!cases[0].id}"          
+                    title='My Title'
+                    width="500px"
+                    logCallBody='{!taint}'
+                    autoCollapseBody="false"
+                />  
+
+            </apex:page>

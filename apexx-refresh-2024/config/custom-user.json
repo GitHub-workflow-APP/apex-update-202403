@@ -1,0 +1,13 @@
+{
+    "Username": "joe@example.org",
+    "LastName": "Found",
+    "Email": "joe@example.org",
+    "Alias": "joefound",
+    "TimeZoneSidKey": "America/Denver",
+    "LocaleSidKey": "en_US",
+    "EmailEncodingKey": "UTF-8",
+    "LanguageLocaleKey": "en_US",
+    "profileName": "Standard Platform User",
+    "permsets": ["PS1_test", "Pagghiazzu_Permission", "Dialog_Permission"],
+    "generatePassword": true
+}

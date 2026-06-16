@@ -1,0 +1,21 @@
+<apex:page standardController="Case" recordSetVar="cases" tabstyle="case">
+    <apex:form id="changeStatusForm" title='">'>
+        <apex:pageBlock >
+        <apex:pageMessages />
+        <apex:pageBlockButtons>
+            <apex:commandButton value="Save" action="{!save}"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockTable value="{!cases}" var="c">
+            <apex:column value="{!c.casenumber}" id="casenumber"/>
+            <apex:column value="{!c.account.name}"/>
+            <apex:column value="{!c.contact.name}"/>
+            <apex:column value="{!c.subject}"/>
+            <apex:column headerValue="Status">
+                <apex:inputField value="{!c.Status}" id="Status_validation"/>
+            </apex:column>
+        </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+    </apex:form>
+
+</apex:page>

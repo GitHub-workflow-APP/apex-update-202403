@@ -1,0 +1,54 @@
+<apex:page controller="FooCustomController" title='{!contentType}' >
+
+<apex:form>
+
+    <apex:actionFunction name='runMe0' action='{!aSimpleMethod2}' rerender="currentValueOfFoo">
+    </apex:actionFunction>
+
+    <!-- CWEID 80 because of name attribute-->
+    <apex:actionFunction name='{!fnName}' action='{!aSimpleMethod}' rerender="currentValueOfFoo">
+    </apex:actionFunction>
+
+    <!-- CWEID 80 because of onbeforedomupdate-->
+    <apex:actionFunction name='runMe2' action='{!aSimpleMethod2}' rerender="currentValueOfFoo" onbeforedomupdate='{!taintVariable}'>
+    </apex:actionFunction>
+
+    <!-- CWEID 80 because of oncomplete-->
+    <apex:actionFunction name='runMe3' action='{!aSimpleMethod2}' rerender="currentValueOfFoo" oncomplete='{!taintVariable}'>
+    </apex:actionFunction>
+
+    <apex:inputText id='Mario' value="{!foo}" ></apex:inputText>
+    <apex:outputText id="currentValueOfFoo" escape="false" value="{!foo}" ></apex:outputText>
+
+    <apex:commandButton action="{!doNothing}" dir='" onmouseover=alert(111)>' value="Save" id="theButton"/>
+        <!-- CWE 918 because of taint image attribute -->
+    <apex:commandButton action="{!doNothing}" image='https://cdn4.iconfinder.com/data/icons/small-n-flat/24/cat-512.png?{!foo}' value="Save" id="theButton2"/>
+    <apex:commandButton action="{!doNothing}" lang='" onmouseover=alert(114)>' value="Save" id="theButton3"/>
+    <apex:commandButton action="{!doNothing}" reRender='" onmouseover=alert(115)>' value="Save" id="theButton4"/>
+    <apex:commandButton action="{!doNothing}" tabindex='" onmouseover=alert(116)>' value="Save" id="theButton5"/>
+    <apex:commandButton action="{!doNothing}" status='" onmouseover=alert(117)>' value="Save" id="theButton6"/>
+    <apex:commandButton action="{!doNothing}" style='" onmouseover=alert(118)>' value="Save" id="theButton7"/>
+
+    <apex:commandLink action="{!doNothing}" value="doNothing" id="theCommandLink" target='" onmouseover=alert(123321)>'/>
+</apex:form>
+			
+
+
+<input type="button" onclick="runMe0()" value="Click ME"></input>
+<input type="button" onclick="runMe()" value="Click ME"></input>
+<input type="button" onclick="runMe2()" value="Click ME"></input>
+<input type="button" onclick="runMe3()" value="Click ME"></input>
+
+
+<apex:panelBar>
+    <apex:panelBarItem label="Item 1" headerStyleActive='"<script>alert(979)</script>'>data 1</apex:panelBarItem>
+    <apex:panelBarItem label="Item 2">data 2</apex:panelBarItem>
+    <apex:panelBarItem label="Item 3">data 3</apex:panelBarItem>
+</apex:panelBar>
+
+<!-- CWE 80 - taint value -->
+<apex:outputLink value="{!taintLink}">to example.com</apex:outputLink>
+
+<apex:outputLink value="http://www.example.com" title='77777"<>:'>to example.com</apex:outputLink>
+
+</apex:page>

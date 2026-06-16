@@ -1,0 +1,71 @@
+<apex:page controller="exampleCon" docType="html-5.0">
+    <apex:form>
+        <apex:outputText value="Watch this counter: {!count}" id="counter"/>
+        <apex:actionPoller action="{!incrementCounter}" reRender="counter" interval='5' status="pollerStatus"/>
+        <apex:input value="{!inputValue}" id="theTextInput" list='" onmouseover="alert(999)" />'/>
+    </apex:form>
+
+    <!-- all attributes are safe except the usual on*-->
+    <apex:actionStatus id="pollerStatus"  startText=" jachino<b>hello</b>" stopText=" {!funnyString}" lang="{!funnyString}" 
+    layout="{!funnyString}"
+    stopStyle="{!funnyString}"
+    title='"<script>"alert(1)</script>'
+    dir="{!funnyString}"
+    ></apex:actionStatus> 
+
+        <!-- CWE 80 - height tainted -->
+        <apex:chart width="350" height='{!funnyString3}' 
+            data="{!pieData}" 
+            colorSet='"<script>alert(989)</script>' 
+            name='pippo' >
+            <apex:pieSeries dataField="data" labelField="name"/>
+            <apex:legend position="right"/>
+
+        </apex:chart>
+
+        <!-- CWE 80 - width tainted -->
+        <apex:chart height="350" width='{!funnyString3}' 
+            data="{!pieData}" 
+            colorSet='"<script>alert(989)</script>' 
+            name='{!funnyString2}' >
+            <apex:pieSeries dataField="data" labelField="name"/>
+            <apex:legend position="right"/>
+
+        </apex:chart>
+
+        <!-- FP 80 -->
+        <apex:chart width="350" height='350' 
+            data="{!pieData}" 
+            colorSet='"<script>alert(989)</script>' 
+            name='pluto'>
+            <apex:legend position="top"/>
+            <apex:pieSeries dataField="data" labelField="name">
+                <apex:chartTips 
+                labelField="{!funnyString4}" 
+                valueField="{!funnyString4}"
+                 />
+            </apex:pieSeries>
+            
+        </apex:chart>
+
+        <c:myTestComponent myValue="My component's value" borderColor="red" />
+
+
+        <!-- CWE 918 because of tainted src -->
+        <apex:iframe src="https://www.example.com?{!funnyString4}" scrolling="true" id="theIframe"/>
+
+        <!-- CWE 918 because of tainted value -->
+        <apex:image 
+        id="theImage" 
+        value="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/cat-512.png?{!secretValue}" 
+        width='50'
+        height="55" 
+        alt='" =Description of image here>'/> 
+
+        <!-- CWE 80 because of tainted value -->
+        <apex:includeScript id="myscript" value="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/cat-512.png?{!secretValue}"></apex:includeScript>
+
+
+        <!-- CWE 80 because of tainted value attribute. you can add something like javascript:alert(11) -->
+        <apex:outputLink value="{!myLink}">{!myLink}</apex:outputLink>
+</apex:page>

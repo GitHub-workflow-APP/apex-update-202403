@@ -1,0 +1,19 @@
+<apex:page standardController="Lead" docType="html-5.0" recordSetVar="leads">
+    <apex:form >
+        <apex:inputcheckbox lang='" %00onclick=alert(2) />";' onblur="alert(1)" title='"mario'></apex:inputcheckbox>
+        <apex:inputHidden value="{!leads[0].Firstname }" id="theHiddenInput1"/>
+        <apex:inputHidden value="{!leads[1].Firstname }" id="theHiddenInput2"/>
+        
+    </apex:form>
+    <apex:pageBlock>
+    <apex:pageBlockTable value="{!leads}" var="l">
+        <apex:column value="{!l.FirstName}"></apex:column>
+        <apex:column value="{!l.LastName}"></apex:column>
+        
+    </apex:pageBlockTable>
+    
+
+    <!-- <apex:outputtext escape="false" value="{!leads[0].Firstname }"/> -->
+
+</apex:pageBlock>
+</apex:page>
